@@ -1,0 +1,13 @@
+# Create local k8s volumes
+
+# Create a file to be our new disk
+`dd if=/dev/zero of=/opt/k8s.local bs=1 count=1 seek=10G`
+
+# Add a file system
+`mkfs.ext4 k8s.local`
+
+# Add the new line to pickup the file system to fstab to automount on system reboot
+`vim /etc/fstab` add the line: `/opt/k8s.local  /mnt/k8s        ext4    defaults,noatime 0 1`
+
+# Mount it
+`mount -a`
